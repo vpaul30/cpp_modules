@@ -35,7 +35,16 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 void ClapTrap::attack(const std::string &target)
 {
 	if (!_energyPoints)
+	{
+		std::cout << "No energy!\n";
 		return;
+	}
+	if (!_hitPoints)
+	{
+		std::cout << "No hit points!\n";
+		return;
+	}
+
 	std::cout << "ClapTrap " << _name << " attacks " << target;
 	std::cout << ", causing " << _attackDamage << " points of damage!\n";
 	_energyPoints--;
@@ -43,17 +52,31 @@ void ClapTrap::attack(const std::string &target)
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	std::cout << _name << " takes " << amount << " damage!\n";
+	std::cout << "ClapTrap " << _name << " takes " << amount << " damage!\n";
+	if (amount > _hitPoints)
+		amount = _hitPoints;
 	_hitPoints -= amount;
-	if (_hitPoints < 0)
-		_hitPoints = 0;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (!_energyPoints)
+	{
+		std::cout << "No energy!\n";
 		return;
-	std::cout << _name << " is repairing for ";
+	}
+	if (!_hitPoints)
+	{
+		std::cout << "No hit points!\n";
+		return;
+	}
+
+	if (amount > 10)
+	{
+		std::cout << "Can't heal more than 10 hit points at once!\n";
+		return;
+	}
+	std::cout << "ClapTrap " << _name << " is repairing for ";
 	std::cout << amount << " points.\n";
 	_hitPoints += amount;
 	if (_hitPoints > 10)
