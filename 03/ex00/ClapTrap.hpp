@@ -11,6 +11,8 @@ private:
 	int _hitPoints;
 	int _energyPoints;
 	int _attackDamage;
+	int _maxHitPoints;
+
 public:
 	ClapTrap();
 	ClapTrap(std::string name);

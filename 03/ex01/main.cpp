@@ -27,10 +27,16 @@ int main( void )
 		scavTrap.attack("someone");
 		scavTrap.printInfo();
 		scavTrap.takeDamage(25);
-		scavTrap.beRepaired(10);
+		scavTrap.beRepaired(20);
 		scavTrap.printInfo();
 		scavTrap.guardGate();
 	}
+
+	std::cout << "\n===ANOTHER TEST===\n\n";
+
+	ClapTrap *ptr = new ScavTrap("Mike");
+	ptr->attack("someone");
+	delete ptr;
 
 	return 0;
 }

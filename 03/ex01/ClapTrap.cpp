@@ -1,13 +1,13 @@
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap()
- : _name("noname"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ : _name("noname"), _hitPoints(10), _energyPoints(10), _attackDamage(0), _maxHitPoints(10)
 {
 	std::cout << "ClapTrap constructor called without name.\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
-	: _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
+	: _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0), _maxHitPoints(10)
 {
 	std::cout << "ClapTrap constructor called with name.\n";
 }
@@ -71,16 +71,16 @@ void ClapTrap::beRepaired(unsigned int amount)
 		return;
 	}
 
-	if (amount > 10)
+	if (amount > _maxHitPoints)
 	{
-		std::cout << "Can't heal more than 10 hit points at once!\n";
+		std::cout << "Can't heal more than " << _maxHitPoints << " hit points at once!\n";
 		return;
 	}
 	std::cout << "ClapTrap " << _name << " is repairing for ";
 	std::cout << amount << " points.\n";
 	_hitPoints += amount;
-	if (_hitPoints > 10)
-		_hitPoints = 10;
+	if (_hitPoints > _maxHitPoints)
+		_hitPoints = _maxHitPoints;
 	_energyPoints--;
 }
 

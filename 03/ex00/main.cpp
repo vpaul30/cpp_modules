@@ -5,9 +5,9 @@ int main( void )
 {
 	ClapTrap clapTrap("Billy");
 	clapTrap.attack("Bob");
-	clapTrap.takeDamage(7);
+	clapTrap.takeDamage(9);
 	clapTrap.printInfo();
-	clapTrap.beRepaired(5);
+	clapTrap.beRepaired(10);
 	clapTrap.printInfo();
 
 	for (int i = 0; i < 10; i++)
