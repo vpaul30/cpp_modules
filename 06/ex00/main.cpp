@@ -1,42 +1,38 @@
 #include <iostream>
-#include <iomanip>
 #include "ScalarConverter.hpp"
-
-bool isRounded(double number) {
-    return (number == static_cast<int>(number));
-}
 
 int main(int argc, char **argv)
 {
-    // std::cout << "TEST CASTS\n";
+    if (argc != 2)
+        return 0;
 
-    // double numbers[] = {1, 2.345, 3, 4.56789, 5};
-    
-    // std::ios defaultCout(nullptr);
-    // defaultCout.copyfmt(std::cout);
-
-    // for (double item : numbers)
-    // {
-    //     if (isRounded(item))
-    //         std::cout << std::fixed << std::setprecision(1) << item << "f" << std::endl;
-    //     else
-    //     {
-    //         std::cout.copyfmt(defaultCout);
-    //         std::cout << item << "f" << std::endl;
-    //     }
-    // }
-
-    // ScalarConverter test("-123.354f");
-    // test.convert();
     ScalarConverter::convert(argv[1]);
 
-    // std::string input;
+    // TESTS
+    // std::cout << "=== A ===\n";
+    // ScalarConverter::convert("A");
+    // std::cout << "\n=== 5 ===\n";
+    // ScalarConverter::convert("5");
+    // std::cout << "\n=== 42.0f ===\n";
+    // ScalarConverter::convert("42.0f");
+    // std::cout << "\n=== 104.123f ===\n";
+    // ScalarConverter::convert("104.123f");
+    // std::cout << "\n=== 21.0 ===\n";
+    // ScalarConverter::convert("21.0");
+    // std::cout << "\n=== 205.3 ===\n";
+    // ScalarConverter::convert("205.3");
+    // std::cout << "\n=== +inff ===\n";
+    // ScalarConverter::convert("+inff");
+    // std::cout << "\n=== -inff ===\n";
+    // ScalarConverter::convert("-inff");
+    // std::cout << "\n=== nanf ===\n";
+    // ScalarConverter::convert("nanf");
+    // std::cout << "\n=== +inf ===\n";
+    // ScalarConverter::convert("+inf");
+    // std::cout << "\n=== -inf ===\n";
+    // ScalarConverter::convert("-inf");
+    // std::cout << "\n=== nan ===\n";
+    // ScalarConverter::convert("nan");
 
-    // std::cout << "enter literal:\n";
-    // std::cin >> input;
-    // std::cout << "input = " << input << std::endl;
-
-    // double _double = std::atof(input.c_str());
-    // std::cout << "double = " << _double << std::endl;
     return 0;
 }
