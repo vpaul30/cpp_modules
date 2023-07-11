@@ -10,7 +10,6 @@ class MateriaSource : public IMateriaSource
 {
 private:
 	AMateria *_knownMaterias[4];
-	int _knownMateriasIdx;
 
 public:
 	MateriaSource();

@@ -11,6 +11,9 @@ OBJ =  $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ)
 
+debug:
+	make FLAGS="$(FLAGS) -D DEBUG"
+
 $(OBJ_DIR)%.o:%.cpp
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(FLAGS) -o $@ -c $<
