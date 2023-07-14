@@ -31,8 +31,7 @@ void Animal::makeSound() const
 Brain *Animal::getBrain() const
 {
 	std::cout << "Error. Cannot get brain of Animal, as it does not have one!\n";
-	std::cout << "Exiting...\n";
-	exit(1);
+	// exit(1);
 	return NULL;
 }
 

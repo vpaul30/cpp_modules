@@ -1,6 +1,5 @@
 CC = c++
-# FLAGS = -Wall -Wextra -Werror -std=c++98
-FLAGS = -std=c++98
+FLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = ex03
 SRC = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp

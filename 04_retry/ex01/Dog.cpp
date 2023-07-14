@@ -1,13 +1,13 @@
 #include "Dog.hpp"
 
-Dog::Dog()
+Dog::Dog() : Animal()
 {
 	std::cout << "Dog default constructor called.\n";
 	type = "Dog";
 	_brain = new Brain();
 }
 
-Dog::Dog(const Dog &other)
+Dog::Dog(const Dog &other) : Animal()
 {
 	_brain = NULL;
 	std::cout << "Dog copy constructor called.\n";
@@ -16,7 +16,7 @@ Dog::Dog(const Dog &other)
 
 Dog &Dog::operator=(const Dog &other)
 {
-	std::cout << "Dog assignement operator called.\n";
+	std::cout << "Dog assignment operator called.\n";
 	type = other.getType();
 	if (_brain)
 		delete _brain;
@@ -26,7 +26,7 @@ Dog &Dog::operator=(const Dog &other)
 
 Animal	&Dog::operator=(Animal const &other)
 {
-	std::cout << "Animal assignement operator called for dog.\n";
+	std::cout << "Animal assignment operator called for dog.\n";
 	type = other.getType();
 	if (_brain)
 		delete _brain;

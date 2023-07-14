@@ -6,16 +6,14 @@
 
 int main()
 {
-	std::cout << "=====\n";
-	std::cout << "Check if Animal Class is abstract:\n";
-	Animal *abstract = new Animal();
-	std::cout << "Type: " << abstract->getType() << std::endl;
-	delete abstract;
-	std::cout << "=====\n";
+	// std::cout << "=====\n";
+	// std::cout << "Check if Animal Class is abstract:\n";
+	// Animal *abstract = new Animal();
+	// std::cout << "Type: " << abstract->getType() << std::endl;
+	// delete abstract;
+	// std::cout << "=====\n";
 
-	std::cout << std::endl;
-
-	std::cout << "=====\n";
+	std::cout << "\n=====\n";
 	std::cout << "Creating 6 animals (3 cats and 3 dogs):\n";
 	const Animal *animal_arr[6];
 	for (int i = 0; i < 6; i++)

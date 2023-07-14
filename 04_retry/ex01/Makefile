@@ -11,6 +11,9 @@ $(NAME): $(OBJ)
 
 all: $(NAME)
 
+.cpp.o:
+	$(CC) $(FLAGS) -c $< -o $(<:.cpp=.o)
+
 clean:
 	rm -f $(OBJ)
 
