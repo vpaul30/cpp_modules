@@ -79,6 +79,11 @@ void Character::equip(AMateria* m)
 
 void Character::unequip(int idx)
 {
+	if (idx < 0 || idx > 3)
+	{
+		std::cout << "* wrond index *\n";
+		return;
+	}
 	if (_inventory[idx] == NULL)
 	{
 		std::cout << "* nothing to unequip at slot " << idx << " *\n";
@@ -92,6 +97,11 @@ void Character::unequip(int idx)
 
 void Character::use(int idx, ICharacter& target)
 {
+	if (idx < 0 || idx > 3)
+	{
+		std::cout << "* wrond index *\n";
+		return;
+	}
 	if (_inventory[idx] == NULL)
 	{
 		std::cout << "* nothing to use at slot " << idx << " *\n";

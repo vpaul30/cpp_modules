@@ -47,26 +47,40 @@ void BitcoinExchange::run()
 	}
 }
 
+// bool BitcoinExchange::validateLine(std::string &line)
+// {
+// 	if (countCharsInLine(line, '|') != 1)
+// 	{
+// 		printError("bad input => " + line);
+// 		return false;
+// 	}
+// 	std::string date = line.substr(0, line.find('|'));
+// 	std::string value = line.substr(line.find('|') + 1, line.length() - 1);
+// 	if (date.empty() || value.empty())
+// 	{
+// 		printError("bad input => " + line);
+// 		return false;
+// 	}
+// 	// std::cout << "date: " << date << ".\n";
+// 	if (!validateDate(date))
+// 		return false;
+// 	// std::cout << "value: " << value << ".\n";
+// 	if (!validateValue(value))
+// 		return false;
+
+
+// 	return true;
+// }
+
 bool BitcoinExchange::validateLine(std::string &line)
 {
-	if (countCharsInLine(line, '|') != 1)
-	{
-		printError("bad input => " + line);
-		return false;
-	}
-	std::string date = line.substr(0, line.find('|'));
-	std::string value = line.substr(line.find('|') + 1, line.length() - 1);
-	if (date.empty() || value.empty())
-	{
-		printError("bad input => " + line);
-		return false;
-	}
-	// std::cout << "date: " << date << ".\n";
-	if (!validateDate(date))
-		return false;
-	// std::cout << "value: " << value << ".\n";
-	if (!validateValue(value))
-		return false;
+	// check for delim (" | " or ',')
+	int pipeDelimPos = line.find(" | ");
+	int comaDelimPos = line.find(',');
+
+	std::cout << "pipe pos = " << pipeDelimPos << std::endl;
+	std::cout << "coma pos = " << comaDelimPos << std::endl;
+
 
 
 	return true;
