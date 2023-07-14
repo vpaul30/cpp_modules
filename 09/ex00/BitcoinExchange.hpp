@@ -22,6 +22,7 @@ private:
 	int	countCharsInLine(std::string &line, char c);
 	bool validateDate(std::string &date);
 	bool validateValue(std::string &date);
+	void printError(std::string errMsg);
 
 public:
 	BitcoinExchange();
