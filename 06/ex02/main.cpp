@@ -1,12 +1,11 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <cstdlib>
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
-
-#include <iomanip>
 
 Base *generate(void)
 {
@@ -29,8 +28,6 @@ Base *generate(void)
 
 void identify(Base *p)
 {
-	for(int i = 0; i < 3; i++)
-	{
 		if (dynamic_cast<A *>(p))
 		{
 			std::cout << "A";
@@ -46,7 +43,6 @@ void identify(Base *p)
 			std::cout << "C";
 			return;
 		}
-	}
 }
 
 void identify(Base &p)

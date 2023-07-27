@@ -30,7 +30,7 @@ AForm::~AForm()
 
 AForm &AForm::operator=(const AForm &other)
 {
-	std::cout << "Form assignement operator called.\n";
+	std::cout << "Form assignment operator called.\n";
 	// it's not going to do anything
 	// as almost all of the Form's
 	// members are constants
@@ -83,8 +83,6 @@ void AForm::beSigned(Bureaucrat &bureaucrat)
 
 void AForm::execute(Bureaucrat const &executor) const
 {
-	std::string msg = "";
-
 	if (_signed == false)
 		throw FormNotSigned();
 	if (executor.getGrade() > _gradeToExec)

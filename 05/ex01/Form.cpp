@@ -30,7 +30,7 @@ Form::~Form()
 
 Form &Form::operator=(const Form &other)
 {
-	std::cout << "Form assignement operator called.\n";
+	std::cout << "Form assignment operator called.\n";
 	// it's not going to do anything
 	// as almost all of the Form's
 	// members are constants

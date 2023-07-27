@@ -27,7 +27,7 @@ void BitcoinExchange::run()
 {
 	std::ifstream file;
 	std::string line;
-	file.open(_inputFile);
+	file.open("text.txt");
 	if (!file.good())
 		return; // cannot open file
 
@@ -124,7 +124,7 @@ bool BitcoinExchange::validateDate(std::string &date)
 			printError("year must be a number");
 			return false;
 		}
-	if (std::stoi(yearStr) < 1000 || std::stoi(yearStr) > 9999)
+	if (atoi(yearStr.c_str()) < 1000 || atoi(yearStr.c_str()) > 9999)
 	{
 		printError("year must be in range from 1000 to 9999");
 		return false;
@@ -144,7 +144,7 @@ bool BitcoinExchange::validateDate(std::string &date)
 			printError("month must be a number");
 			return false;
 		}
-	if (std::stoi(monthStr) < 1 || std::stoi(monthStr) > 12)
+	if (atoi(monthStr.c_str()) < 1 || atoi(monthStr.c_str()) > 12)
 	{
 		printError("month must be in range from 1 to 12");
 		return false;
@@ -152,7 +152,7 @@ bool BitcoinExchange::validateDate(std::string &date)
 	// DAY
 	std::string dayStr = date.substr(date.find_last_of('-') + 1, date.length() - 1);
 	// std::cout << "dayStr: " << dayStr << std::endl;
-	dayStr.pop_back(); // remove space at the end
+	// dayStr.pop_back(); // remove space at the end
 	if (dayStr.empty())
 	{
 		printError("no day");
@@ -164,7 +164,7 @@ bool BitcoinExchange::validateDate(std::string &date)
 			printError("day must be a number");
 			return false;
 		}
-	if (std::stoi(dayStr) < 1 || std::stoi(dayStr) > 31)
+	if (atoi(dayStr.c_str()) < 1 || atoi(dayStr.c_str()) > 31)
 	{
 		printError("day must be in range from 1 to 31");
 		return false;

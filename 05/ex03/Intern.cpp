@@ -18,7 +18,7 @@ Intern::~Intern()
 
 Intern &Intern::operator=(const Intern &other)
 {
-	std::cout << "Intern copy assignement operator called.\n";
+	std::cout << "Intern copy assignment operator called.\n";
 	if (this == &other)
 		return *this;
 
@@ -59,5 +59,6 @@ AForm *Intern::makeForm(std::string formName, std::string formTarget)
 	}
 
 	std::cout << "Intern cannot create a " << formName << ", so he left the form empty.\n";
-	return new EmptyForm(formTarget);
+	// return new EmptyForm(formTarget);
+	return NULL;
 }

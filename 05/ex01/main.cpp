@@ -96,4 +96,21 @@ int main()
 	{
 		std::cerr << e.what() << '\n';
 	}
+
+	std::cout << "\n=== TEST 7 ===\n\n";
+	try
+	{
+		Bureaucrat john("John", 25);
+		Form form("Test", 25, 45);
+		Form form_copy(form);
+		std::cout << form;
+		std::cout << form_copy;
+		john.signForm(form_copy);
+		std::cout << form;
+		std::cout << form_copy;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }

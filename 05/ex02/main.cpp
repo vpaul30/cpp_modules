@@ -14,7 +14,7 @@ int main()
 
 		std::cout << form;
 		john.signForm(form);
-		std::cout << form;
+		// std::cout << form;
 
 		john.executeForm(form);
 	}
@@ -26,10 +26,10 @@ int main()
 	std::cout << "=== TEST 2 ===\n\n";
 	try
 	{
-		Bureaucrat john("John", 5);
+		Bureaucrat john("John", 45);
 		RobotomyRequestForm form("Bob");
 
-		// std::cout << form;
+		std::cout << form;
 		john.signForm(form);
 		// std::cout << form;
 
@@ -45,10 +45,10 @@ int main()
 	std::cout << "=== TEST 3 ===\n\n";
 	try
 	{
-		Bureaucrat john("John", 5);
+		Bureaucrat john("John", 137);
 		ShrubberyCreationForm form("Garden");
 		
-		// std::cout << form;
+		std::cout << form;
 		john.signForm(form);
 		// std::cout << form;
 	

@@ -15,8 +15,8 @@ int main(int argc, char **argv)
     // ScalarConverter::convert("5");
     // std::cout << "\n=== 42.0f ===\n";
     // ScalarConverter::convert("42.0f");
-    // std::cout << "\n=== 104.123f ===\n";
-    // ScalarConverter::convert("104.123f");
+    // std::cout << "\n=== -104.123f ===\n";
+    // ScalarConverter::convert("-104.123f");
     // std::cout << "\n=== 21.0 ===\n";
     // ScalarConverter::convert("21.0");
     // std::cout << "\n=== 205.3 ===\n";

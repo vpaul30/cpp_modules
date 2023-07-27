@@ -5,7 +5,7 @@
 
 class C : public Base
 {
-
+	~C();
 };
 
 #endif

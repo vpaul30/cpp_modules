@@ -7,6 +7,7 @@ ScalarConverter::ScalarConverter()
 ScalarConverter::ScalarConverter(const ScalarConverter &other)
 {
     std::cout << "ScalarConverter copy constructor called.\n";
+    *this = other;
     // nothing to copy
 }
 ScalarConverter::~ScalarConverter()
@@ -18,6 +19,8 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
 {
     std::cout << "ScalarConverter assignment operator called.\n";
     // nothing to assign
+    if (this == &other)
+        return *this;
     return *this;
 }
 
@@ -69,7 +72,7 @@ char ScalarConverter::getLiteralType(std::string literal)
 // Int
 void ScalarConverter::toInt(myInt &_int, std::string literal)
 {
-    _int.value = std::atoi(literal.c_str());
+    _int.value = atoi(literal.c_str());
 }
 
 void ScalarConverter::fromInt(myInt &_int, myChar &_char, myFloat &_float, myDouble &_double)
@@ -107,7 +110,7 @@ void ScalarConverter::toFloat(myFloat &_float ,std::string literal)
         _float.msg = "+inff";
     else if (literal == "nanf")
         _float.msg = "nanf";
-    _float.value = std::atof(literal.c_str());
+    _float.value = atof(literal.c_str());
 }
 
 void ScalarConverter::fromFloat(myFloat &_float, myChar &_char, myInt &_int, myDouble &_double)
@@ -149,7 +152,7 @@ void ScalarConverter::toDouble(myDouble &_double ,std::string literal)
         _double.msg = "+inf";
     else if (literal == "nan")
         _double.msg = "nan";
-    _double.value = std::atof(literal.c_str());
+    _double.value = atof(literal.c_str());
 }
 
 void ScalarConverter::fromDouble(myDouble &_double, myChar &_char, myInt &_int, myFloat &_float)

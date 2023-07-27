@@ -13,14 +13,14 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target)
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &other)
-	: AForm("PresidentialPardonForm", 25, 5), _target(other._target)
+	: AForm(other), _target(other._target)
 {
 	std::cout << "PresidentialPardonForm copy constructor called.\n";
 }
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
 {
-	std::cout << "PresidentialPardonForm assignement operator called.\n";
+	std::cout << "PresidentialPardonForm assignment operator called.\n";
 	_target = other._target;
 	return *this;
 }

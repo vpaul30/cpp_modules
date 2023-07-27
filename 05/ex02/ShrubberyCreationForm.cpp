@@ -13,14 +13,14 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
-	: AForm("ShrubberyCreationForm", 145, 137), _target(other._target)
+	: AForm(other), _target(other._target)
 {
 	std::cout << "ShrubberyCreationForm copy constructor called.\n";
 }
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
 {
-	std::cout << "ShrubberyCreationForm assignement operator called.\n";
+	std::cout << "ShrubberyCreationForm assignment operator called.\n";
 	_target = other._target;
 	return *this;
 }

@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <cstdint>
+#include <stdint.h>
 
 struct Data
 {

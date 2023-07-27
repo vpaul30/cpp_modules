@@ -8,6 +8,7 @@ Serializer::Serializer()
 Serializer::Serializer(const Serializer &other)
 {
 	std::cout << "Serializer copy constructor called.\n";
+	*this = other;
 }
 
 Serializer::~Serializer()
@@ -18,6 +19,8 @@ Serializer::~Serializer()
 Serializer &Serializer::operator=(const Serializer &other)
 {
 	std::cout << "Serializer assignment operator called.\n";
+	if (this == &other)
+		return *this;
 	return *this;
 }
 

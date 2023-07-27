@@ -1,8 +1,8 @@
-CC = c++
+CC = g++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = realType
-SRC = main.cpp Base.cpp A.cpp B.cpp C.cpp
+NAME = ex02
+SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

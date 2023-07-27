@@ -12,8 +12,8 @@ $(NAME): $(OBJ)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ)
 
 $(OBJ_DIR)%.o:%.cpp
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAGS) -o $@ -c $<
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(FLAGS) -o $@ -c $<
 
 all: $(NAME)
 

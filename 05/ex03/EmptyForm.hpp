@@ -1,28 +1,28 @@
-#ifndef EMPTYFORM_HPP
-#define EMPTYFORM_HPP
+// #ifndef EMPTYFORM_HPP
+// #define EMPTYFORM_HPP
 
-#include <iostream>
-#include <string>
-#include <exception>
-#include "AForm.hpp"
+// #include <iostream>
+// #include <string>
+// #include <exception>
+// #include "AForm.hpp"
 
-class EmptyForm : public AForm
-{
-private:
-	std::string _target;
+// class EmptyForm : public AForm
+// {
+// private:
+// 	std::string _target;
 
-	EmptyForm();
+// 	EmptyForm();
 
-public:
-	EmptyForm(std::string target);
-	EmptyForm(const EmptyForm &other);
-	~EmptyForm();
+// public:
+// 	EmptyForm(std::string target);
+// 	EmptyForm(const EmptyForm &other);
+// 	~EmptyForm();
 
-	EmptyForm &operator=(const EmptyForm &other);
+// 	EmptyForm &operator=(const EmptyForm &other);
 
-	void executeAction() const;
+// 	void executeAction() const;
 
-};
+// };
 
 
-#endif
+// #endif

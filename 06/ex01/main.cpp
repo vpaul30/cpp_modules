@@ -11,10 +11,14 @@ int main()
 	std::cout << "name: " << myData->name << std::endl;
 	std::cout << "age: " << myData->age << std::endl;
 
-	uintptr_t serialize_res = Serializer::serialize(myData); 
-	Data *deserialize_res = Serializer::deserialize(serialize_res);
+	std::cout << std::endl;
+
+	uintptr_t serialize_res = Serializer::serialize(myData);
+	std::cout << serialize_res << " - serialize_res" << std::endl; 
 
 	std::cout << std::endl;
+
+	Data *deserialize_res = Serializer::deserialize(serialize_res);
 	std::cout << myData << " - myData" << std::endl;
 	std::cout << deserialize_res << " - deserialize_res" << std::endl;
 

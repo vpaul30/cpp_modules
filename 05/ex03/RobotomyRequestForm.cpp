@@ -1,6 +1,6 @@
 #include "RobotomyRequestForm.hpp"
-#include "cstdlib"
-#include "ctime"
+#include <cstdlib>
+#include <ctime>
 
 RobotomyRequestForm::RobotomyRequestForm()
 	: AForm("RobotomyRequestForm", 72, 45), _target("default")
@@ -17,7 +17,7 @@ RobotomyRequestForm::RobotomyRequestForm(std::string target)
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
-	: AForm("RobotomyRequestForm", 72, 45), _target(other._target)
+	: AForm(other), _target(other._target)
 {
 	std::cout << "RobotomyRequestForm copy constructor called.\n";
 	srand(time(NULL));
@@ -25,7 +25,7 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &other)
 {
-	std::cout << "RobotomyRequestForm assignement operator called.\n";
+	std::cout << "RobotomyRequestForm assignment operator called.\n";
 	_target = other._target;
 	return *this;
 }
