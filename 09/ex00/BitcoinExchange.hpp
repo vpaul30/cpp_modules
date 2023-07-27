@@ -6,6 +6,8 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include <map>
+#include <algorithm>
 
 /*
 readline from text.txt, validate it
@@ -19,10 +21,11 @@ class BitcoinExchange
 private:
 	std::string _inputFile;
 
-	bool validateLine(std::string &line);
+	bool validateDBLine(std::string &line);
+	bool validateInputLine(std::string &line);
 	int	countCharsInLine(std::string &line, char c);
-	bool validateDate(std::string &date);
-	bool validateValue(std::string &date);
+	int getDate(std::string &date);
+	int getValue(std::string &value);
 	void printError(std::string errMsg);
 
 public:
