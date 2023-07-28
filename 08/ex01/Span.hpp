@@ -19,9 +19,9 @@ public:
 
 	void addRandomNumbers(int amount);
 
-	long long shortestSpan();
+	unsigned int shortestSpan();
 
-	long long longestSpan();
+	unsigned int longestSpan();
 
 	void displayNumbers();
 

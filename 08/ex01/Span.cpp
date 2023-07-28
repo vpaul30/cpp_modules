@@ -33,10 +33,10 @@ Span &Span::operator=(const Span &other)
 
 void Span::addNumber(int number)
 {
-	if (_numbers.size() < _maxSize)
-		_numbers.push_back(number);
-	else
-	 	throw NoSpaceException();
+		if (_numbers.size() < _maxSize)
+			_numbers.push_back(number);
+		else
+			throw NoSpaceException();
 }
 
 void Span::addRandomNumbers(int amount)
@@ -46,29 +46,30 @@ void Span::addRandomNumbers(int amount)
 		addNumber(rand() % 100);
 }
 
-long long Span::shortestSpan()
+unsigned int Span::shortestSpan()
 {
 	if (_numbers.size() < 2)
 		throw NotEnoughNumbers();
 	
 	std::sort(_numbers.begin(), _numbers.end());
-	long long shortest = (long long)_numbers[1] - (long long)_numbers[0];
+	unsigned int shortest = (long long)_numbers[1] - (long long)_numbers[0];
 	for (unsigned int i = 1; i < _numbers.size() - 1; i++)
 	{
-		if (shortest > _numbers[i + 1] - _numbers[i])
-			shortest = (long long)_numbers[i + 1] - (long long)_numbers[i];
+		unsigned int res = _numbers[i + 1] - _numbers[i];
+		if (shortest > res)
+			shortest = res;
 	}
 
 	return shortest;
 }
 
-long long Span::longestSpan()
+unsigned int Span::longestSpan()
 {
 	if (_numbers.size() < 2)
 		throw NotEnoughNumbers();
 
 	std::sort(_numbers.begin(), _numbers.end());
-	long long longest = (long long)_numbers.back() - (long long)_numbers.front();
+	unsigned int longest = _numbers.back() - _numbers.front();
 
 	return longest;
 }
