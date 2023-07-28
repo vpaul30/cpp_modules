@@ -1,4 +1,4 @@
-CC = g++
+CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = ex00
@@ -10,6 +10,9 @@ $(NAME): $(OBJ)
 	$(CC) $(FLAGS) -o $(NAME) $(OBJ)
 
 all: $(NAME)
+
+.cpp.o:
+	$(CC) $(FLAGS) -c $< -o $(<:.cpp=.o)
 
 clean:
 	rm -f $(OBJ)

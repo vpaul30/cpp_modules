@@ -34,7 +34,6 @@ int main()
 			std::cout << "arr: " << arr[i] << std::endl;
 		for (int i = 0; i < 3; i++)
 			std::cout << "arr_copy: " << arr_copy[i] << std::endl;
-
 	}
 	catch (std::exception &e)
 	{
@@ -45,9 +44,9 @@ int main()
 	try
 	{
 		Array<int> arr(10);
-		for (int i = 0; i < arr.size(); i++)
+		for (size_t i = 0; i < arr.size(); i++)
 			arr[i] = i;
-		for (int i = 0; i < arr.size(); i++)
+		for (size_t i = 0; i < arr.size(); i++)
 			std::cout << arr[i] << std::endl;
 		std::cout << "---\n";
 		arr[10] = 10;
