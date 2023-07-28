@@ -20,12 +20,13 @@ class BitcoinExchange
 {
 private:
 	std::string _inputFile;
+	std::map<int, float> database;
 
 	bool validateDBLine(std::string &line);
 	bool validateInputLine(std::string &line);
 	int	countCharsInLine(std::string &line, char c);
 	int getDate(std::string &date);
-	int getValue(std::string &value);
+	float getValue(std::string &value);
 	void printError(std::string errMsg);
 
 public:
