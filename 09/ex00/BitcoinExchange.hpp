@@ -12,7 +12,7 @@ class BitcoinExchange
 {
 private:
 	std::string _inputFile;
-	std::map<int, float> database;
+	std::map<int, float> _database;
 
 	bool validateDbLine(std::string &line);
 	bool validateInputLine(std::string &line);

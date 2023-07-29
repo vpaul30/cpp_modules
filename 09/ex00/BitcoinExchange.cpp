@@ -25,7 +25,7 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) // TOD
 	if (this == &other)
 		return *this;
 	_inputFile = other._inputFile;
-	database = other.database;
+	_database = other._database;
 
 	return *this;
 }
@@ -66,7 +66,7 @@ void BitcoinExchange::run()
 		if (!validateDbLine(line)) // mistake in database
 			return;
 	}
-	if (database.size() < 1)
+	if (_database.size() < 1)
 	{
 		std::cerr << "Error: DB: empty database.\n";
 		return;
@@ -112,7 +112,7 @@ bool BitcoinExchange::validateDbLine(std::string &line)
 		return false;
 	}
 
-	database.insert(std::pair<int, float>(date_num, value_num)); // add element to map
+	_database.insert(std::pair<int, float>(date_num, value_num)); // add element to map
 	return true;
 }
 
@@ -151,20 +151,20 @@ bool BitcoinExchange::validateInputLine(std::string &line)
 	}
 
 	std::map<int, float>::iterator it;
-	it = database.lower_bound(date_num);
+	it = _database.lower_bound(date_num);
 	if (it->first == date_num)
 	{
 		std::cout << date << " => " << value_num << " = ";
 		std::cout << value_num * it->second << std::endl;
 	}
-	else if (it == database.end())
-	{
-		std::cout << date << " => " << value_num << " = ";
-		std::cout << value_num * (--it)->second << std::endl;
-	}
+	// else if (it == _database.end())
+	// {
+	// 	std::cout << date << " => " << value_num << " = ";
+	// 	std::cout << value_num * (--it)->second << std::endl;
+	// }
 	else
 	{
-		if (it == database.begin())
+		if (it == _database.begin())
 		{
 			std::cout << date << " => " << value_num << " = ";
 			std::cout << "No bitcoin data" << std::endl;
