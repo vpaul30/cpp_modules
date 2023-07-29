@@ -2,28 +2,31 @@
 
 BitcoinExchange::BitcoinExchange()
 {
-	std::cout << "BitcoinExchange default constructor called.\n";
+	// std::cout << "BitcoinExchange default constructor called.\n";
 }
 
 BitcoinExchange::BitcoinExchange(std::string inputFile) : _inputFile(inputFile)
 {
-	std::cout << "BitcoinExchange constructor called.\n";
+	// std::cout << "BitcoinExchange constructor called.\n";
 }	
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) // TODO copy map
 {
-	std::cout << "BitcoinExchange copy constructor called.\n";
+	// std::cout << "BitcoinExchange copy constructor called.\n";
 	*this = other;
 }
 BitcoinExchange::~BitcoinExchange()
 {
-	std::cout << "BitcoinExchange destructor called.\n";
+	// std::cout << "BitcoinExchange destructor called.\n";
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) // TODO copy map
 {
-	std::cout << "BitcoinExchange assignment operator called.\n";
+	// std::cout << "BitcoinExchange assignment operator called.\n";
 	if (this == &other)
 		return *this;
+	_inputFile = other._inputFile;
+	database = other.database;
+
 	return *this;
 }
 
@@ -55,27 +58,23 @@ void BitcoinExchange::run()
 	std::string line;
 	if (std::getline(dbFile, line) && line != "date,exchange_rate")
 	{
-		std::cerr << "Error: DB: incorrect first line\n";
+		std::cerr << "Error: DB: incorrect first line.\n";
 		return;
 	}
-	int i = 0; // debug
 	while (std::getline(dbFile, line))
 	{
-		// if (i > 3) break; // only going through first 3 lines for debug
-		i++; // debug
-		if (!validateDBLine(line)) // mistake in database
+		if (!validateDbLine(line)) // mistake in database
 			return;
 	}
-	// for (std::map<int, float>::iterator it = database.begin(); it != database.end(); it++)
-	// {
-	// 	std::cout << "key: " << it->first << std::endl;
-	// 	std::cout << "value: " << it->second << std::endl;
-	// }
-	// std::cout << "database.size() = " << database.size() << std::endl;
+	if (database.size() < 1)
+	{
+		std::cerr << "Error: DB: empty database.\n";
+		return;
+	}
 
 	// 2. userInput
 	std::ifstream inputFile;
-	inputFile.open(_inputFile);
+	inputFile.open(_inputFile.c_str()); // check if .c_str() is needed!!!
 	if (!inputFile.good())
 	{
 		std::cerr << "Error: Input File: cannot open file.\n";
@@ -83,28 +82,14 @@ void BitcoinExchange::run()
 	}
 	if (std::getline(inputFile, line) && line != "date | value")
 	{
-		std::cerr << "Error: Input File: incorrect first line\n";
+		std::cerr << "Error: Input File: incorrect first line.\n";
 		return;
 	}
 	while (std::getline(inputFile, line))
-	{
-		/*
-			validate line:
-				if no delimiter -> bad input => line
-				check date
-					if mistake in date -> wrong date
-				check value (0-1000)
-					if value is negative -> not a positive number
-					if value is > 1000 -> too high a number
-			look database for the key,
-				if key is smaller than database.begin() -> use database.begin()
-				if key is higher than database.end() - 1 -> use database.end() - 1
-				if no exect key found -> use lower_bound() ???
-		*/
-	}
+		validateInputLine(line);
 }
 
-bool BitcoinExchange::validateDBLine(std::string &line)
+bool BitcoinExchange::validateDbLine(std::string &line)
 {
 	size_t delimPos = line.find(',');
 	if (delimPos == std::string::npos)
@@ -113,16 +98,15 @@ bool BitcoinExchange::validateDBLine(std::string &line)
 		return false;
 	}
 	std::string date = line.substr(0, delimPos);
-	std::string value = line.substr(delimPos + 1, line.length() - 1);
-
+	std::string value = line.substr(delimPos + 1, line.length() - 1 - delimPos);
 	int date_num = getDate(date);
 	if (date_num == -1)
 	{
 		std::cerr << "Error: DB: wrong date.\n";
 		return false;
 	}
-	float value_num = getValue(value); // TODO
-	if (value_num == -1)
+	float value_num = getValue(value);
+	if (value_num < 0)
 	{
 		std::cerr << "Error: DB: wrong value.\n";
 		return false;
@@ -134,16 +118,69 @@ bool BitcoinExchange::validateDBLine(std::string &line)
 
 bool BitcoinExchange::validateInputLine(std::string &line)
 {
-	if (line.empty())
-		return false; // Werror
+	size_t delimPos = line.find(" | ");
+	if (delimPos == std::string::npos)
+	{
+		std::cerr << "Error: bad input => " << line << std::endl;
+		return false;
+	}
+	std::string date = line.substr(0, delimPos);
+	std::string value = line.substr(delimPos + 3, line.length() - delimPos);
+
+	int date_num = getDate(date);
+	if (date_num == -1)
+	{
+		std::cerr << "Error: wrong date.\n";
+		return false;
+	}
+	float value_num = getValue(value);
+	if (value_num == -1)
+	{
+		std::cerr << "Error: wrong value.\n";
+		return false;
+	}
+	else if (value_num == -2)
+	{
+		std::cerr << "Error: not a positive number.\n";
+		return false;
+	}
+	else if (value_num > 1000)
+	{
+		std::cerr << "Error: too large a number.\n";
+		return false;
+	}
+
+	std::map<int, float>::iterator it;
+	it = database.lower_bound(date_num);
+	if (it->first == date_num)
+	{
+		std::cout << date << " => " << value_num << " = ";
+		std::cout << value_num * it->second << std::endl;
+	}
+	else if (it == database.end())
+	{
+		std::cout << date << " => " << value_num << " = ";
+		std::cout << value_num * (--it)->second << std::endl;
+	}
+	else
+	{
+		if (it == database.begin())
+		{
+			std::cout << date << " => " << value_num << " = ";
+			std::cout << "No bitcoin data" << std::endl;
+		}
+		else
+		{
+			std::cout << date << " => " << value_num << " = ";
+			std::cout << value_num * (--it)->second << std::endl;
+		}
+	}
 	return true;
 }
 
-
-bool extractYear(std::string &date, int &date_num)
+bool BitcoinExchange::extractYear(std::string &date, int &date_num)
 {
 	std::string year = date.substr(0, date.find('-'));
-	// std::cout << "year = " << year << std::endl;
 	if (year.length() != 4)
 		return false;
 	for (size_t i = 0; i < year.length(); i++)
@@ -156,11 +193,10 @@ bool extractYear(std::string &date, int &date_num)
 	return true;
 }
 
-bool extractMonth(std::string &date, int &date_num)
+bool BitcoinExchange::extractMonth(std::string &date, int &date_num)
 {
 	std::string month = date.substr(date.find('-') + 1,
 									date.find_last_of('-') - date.find('-') - 1);
-	// std::cout << "month = " << month << std::endl;
 	if (month.length() != 2)
 		return false;
 	for (size_t i = 0; i < month.length(); i++)
@@ -174,10 +210,9 @@ bool extractMonth(std::string &date, int &date_num)
 	return true;
 }
 
-bool extractDay(std::string &date, int &date_num)
+bool BitcoinExchange::extractDay(std::string &date, int &date_num)
 {
 	std::string day = date.substr(date.find_last_of('-') + 1, date.length() - 1 - date.find_last_of('-'));
-	// std::cout << "day = " << day << std::endl;
 	if (day.length() != 2)
 		return false;
 	for (size_t i = 0; i < day.length(); i++)
@@ -198,13 +233,10 @@ int BitcoinExchange::getDate(std::string &date)
 	// check for 2 occurrences of '-'
 	if (std::count(date.begin(), date.end(), '-') != 2)
 		return -1;
-	// year
 	if (!extractYear(date, date_num))
 		return -1;
-	// month
 	if (!extractMonth(date, date_num))
 		return -1;
-	// day
 	if (!extractDay(date, date_num))
 		return -1;
 	
@@ -213,11 +245,17 @@ int BitcoinExchange::getDate(std::string &date)
 
 float BitcoinExchange::getValue(std::string &value)
 {
-	// only positive and can be fractional | can be negative to throw error for userInput
+	// -1 -> wrong value (not a real number)
+	// -2 -> negative number (needed for userInput error)
 	if (std::count(value.begin(), value.end(), '.') > 1 || value[0] == '.' || value[value.length() - 1] == '.')
 		return -1;
-	for (unsigned int i = 0; i < value.length(); i++)
+	unsigned int i = 0;
+	if (value[i] == '-')
+		i++;
+	for (; i < value.length(); i++)
 		if (!std::isdigit(value[i]) && value[i] != '.')
 			return -1;
+	if (value[0] == '-')
+		return -2;
 	return atof(value.c_str());
 }

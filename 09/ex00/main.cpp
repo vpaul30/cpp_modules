@@ -8,6 +8,7 @@ int main(int argc, char **argv)
 		return 0;
 
 	BitcoinExchange btc(argv[1]);
+
 	btc.run();
 	return 0;
 }
