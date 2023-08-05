@@ -11,33 +11,51 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	std::vector<int> _vector;
-	std::deque<int> _deque;
-	int number;
+	PmergeMe me;
+	if (me.sortVector(argc, argv) == false)
+		return 0;
+	if (me.sortDeque(argc, argv) == false)
+		return 0;
 
-	for (int i = 1; i < argc; i++)
-	{
-		for (int j = 0; argv[i][j] != '\0'; j++)
-			if (!std::isdigit(argv[i][j]))
-			{
-				std::cout << "Wrong input.\n";
-				return 0;
-			}
-		number = atoi(argv[i]);
-		_vector.push_back(number);
-		_deque.push_back(number);
-	}
+	me.displayResult(argc, argv);
 
-	// std::cout << "\n===Vector===\n";
-	// for (unsigned int i = 0; i < _vector.size(); i++)
-	// 	std::cout << _vector[i] << std::endl;
+	// std::cout << "==============================\n";
+	// std::cout << "=== CHECK_SORT===\n";
+	// std::vector<int> me_vector = me.getVector();
+	// std::deque<int> me_deque = me.getDeque();
 
-	// std::cout << "\n===Deque===\n";
-	// for (unsigned int i = 0; i < _deque.size(); i++)
-	// 	std::cout << _deque[i] << std::endl;
+	// // for (int i = 0; i < me_vector.size(); i++)
+	// // 	std::cout << me_vector[i] << " ";
+	// // std::cout << std::endl;
 
-	PmergeMe me(_vector, _deque);
-	me.run();
+	// std::vector<int> check_sort_vector;
+	// for (int i = 1; i < argc; i++)
+	// {
+	// 	int number = atoi(argv[i]);
+	// 	check_sort_vector.push_back(number);
+	// }
+	// std::sort(check_sort_vector.begin(), check_sort_vector.end());
+
+	// std::deque<int> check_sort_deque;
+	// for (int i = 1; i < argc; i++)
+	// {
+	// 	int number = atoi(argv[i]);
+	// 	check_sort_deque.push_back(number);
+	// }
+	// std::sort(check_sort_deque.begin(), check_sort_deque.end());
+
+	// // for (int i = 0; i < check_sort.size(); i++)
+	// // 	std::cout << check_sort[i] << " ";
+	// // std::cout << std::endl;
+	// if (me_vector == check_sort_vector)
+	// 	std::cout << "VECTOR SUCCESS!\n";
+	// else
+	// 	std::cout << "VECTOR FAILURE!\n";
+
+	// if (me_deque == check_sort_deque)
+	// 	std::cout << "DEQUE SUCCESS!\n";
+	// else
+	// 	std::cout << "DEQUE FAILURE!\n";
 
 	return 0;
 }
