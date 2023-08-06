@@ -12,7 +12,6 @@ class PmergeMe
 
 public:
 	PmergeMe();
-	PmergeMe(std::vector<int> vec, std::deque<int> deq);
 	PmergeMe(const PmergeMe &other);
 	~PmergeMe();
 

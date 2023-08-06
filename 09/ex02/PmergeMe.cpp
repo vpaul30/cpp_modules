@@ -225,7 +225,7 @@ bool PmergeMe::initVector(int argc, char **argv)
 {
 	_vector.reserve(argc - 1);
 	_vector_pend.reserve(argc - 1);
-	int number;
+	double number;
 	for (int i = 1; i < argc; i++)
 	{
 		for (int j = 0; argv[i][j] != '\0'; j++)
@@ -234,7 +234,12 @@ bool PmergeMe::initVector(int argc, char **argv)
 				std::cout << "Wrong input.\n";
 				return false;
 			}
-		number = atoi(argv[i]);
+		number = atof(argv[i]);
+		if (number > 2147483647)
+		{
+			std::cout << "Wrong input.\n";
+			return false;
+		}
 		if (std::find(_vector.begin(), _vector.end(), number) == _vector.end())
 			_vector.push_back(number);
 		else
@@ -420,7 +425,7 @@ void PmergeMe::mergeDeque(unsigned int begin, unsigned int mid, unsigned int end
 
 bool PmergeMe::initDeque(int argc, char **argv)
 {
-	int number;
+	double number;
 	for (int i = 1; i < argc; i++)
 	{
 		for (int j = 0; argv[i][j] != '\0'; j++)
@@ -429,7 +434,12 @@ bool PmergeMe::initDeque(int argc, char **argv)
 				std::cout << "Wrong input.\n";
 				return false;
 			}
-		number = atoi(argv[i]);
+		number = atof(argv[i]);
+		if (number > 2147483647)
+		{
+			std::cout << "Wrong input.\n";
+			return false;
+		}
 		if (std::find(_deque.begin(), _deque.end(), number) == _deque.end())
 			_deque.push_back(number);
 		else

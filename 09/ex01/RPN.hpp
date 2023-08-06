@@ -18,7 +18,7 @@ public:
 	bool calculate(char op);
 
 private:
-	std::stack<int> _stack;
+	std::stack<float> _stack;
 
 };
 

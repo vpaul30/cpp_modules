@@ -9,7 +9,7 @@ BitcoinExchange::BitcoinExchange(std::string inputFile) : _inputFile(inputFile)
 {
 	// std::cout << "BitcoinExchange constructor called.\n";
 }	
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) // TODO copy map
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
 {
 	// std::cout << "BitcoinExchange copy constructor called.\n";
 	*this = other;
@@ -19,7 +19,7 @@ BitcoinExchange::~BitcoinExchange()
 	// std::cout << "BitcoinExchange destructor called.\n";
 }
 
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) // TODO copy map
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 {
 	// std::cout << "BitcoinExchange assignment operator called.\n";
 	if (this == &other)
@@ -36,7 +36,7 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) // TOD
 		read every line,
 		validate line (date,value)
 			* true -> add <date, value> to map
-			* false -> throw MistakeInDatabaseException() (catch in main)
+			* false -> exit
 	
 	2. userInput
 		open file
@@ -105,14 +105,14 @@ bool BitcoinExchange::validateDbLine(std::string &line)
 		std::cerr << "Error: DB: wrong date.\n";
 		return false;
 	}
-	float value_num = getValue(value);
+	double value_num = getValue(value);
 	if (value_num < 0)
 	{
 		std::cerr << "Error: DB: wrong value.\n";
 		return false;
 	}
 
-	_database.insert(std::pair<int, float>(date_num, value_num)); // add element to map
+	_database.insert(std::pair<int, double>(date_num, value_num)); // add element to map
 	return true;
 }
 
@@ -133,7 +133,7 @@ bool BitcoinExchange::validateInputLine(std::string &line)
 		std::cerr << "Error: wrong date.\n";
 		return false;
 	}
-	float value_num = getValue(value);
+	double value_num = getValue(value);
 	if (value_num == -1)
 	{
 		std::cerr << "Error: wrong value.\n";
@@ -150,12 +150,14 @@ bool BitcoinExchange::validateInputLine(std::string &line)
 		return false;
 	}
 
-	std::map<int, float>::iterator it;
+	std::map<int, double>::iterator it;
 	it = _database.lower_bound(date_num);
 	if (it->first == date_num)
 	{
 		std::cout << date << " => " << value_num << " = ";
-		std::cout << value_num * it->second << std::endl;
+		// std::cout << value_num * it->second << std::endl;
+		printValue(value_num, it->second);
+
 	}
 	// else if (it == _database.end())
 	// {
@@ -172,10 +174,26 @@ bool BitcoinExchange::validateInputLine(std::string &line)
 		else
 		{
 			std::cout << date << " => " << value_num << " = ";
-			std::cout << value_num * (--it)->second << std::endl;
+			// std::cout << value_num * (--it)->second << std::endl;
+			printValue(value_num, (--it)->second);
 		}
 	}
 	return true;
+}
+
+void BitcoinExchange::printValue(double amount, double price)
+{
+	double number = amount * price;
+	std::stringstream ss;
+	ss << std::fixed << std::setprecision(2) << number;
+	std::string str = ss.str();
+	if(str.find('.') != std::string::npos)
+	{
+		str = str.substr(0, str.find_last_not_of('0') + 1);
+		if(str.find('.') == str.size()-1)
+			str = str.substr(0, str.size()-1);
+	}
+	std::cout << str << std::endl;
 }
 
 bool BitcoinExchange::extractYear(std::string &date, int &date_num)
@@ -243,7 +261,7 @@ int BitcoinExchange::getDate(std::string &date)
 	return date_num;
 }
 
-float BitcoinExchange::getValue(std::string &value)
+double BitcoinExchange::getValue(std::string &value)
 {
 	// -1 -> wrong value (not a real number)
 	// -2 -> negative number (needed for userInput error)
